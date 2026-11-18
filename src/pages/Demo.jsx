@@ -1,8 +1,8 @@
 // Page de test : vérifie que Firestore fonctionne (lecture temps réel + écriture).
 // À supprimer ou à transformer le jour J.
 import { useState } from 'react'
-import { addDoc, collection, serverTimestamp } from 'firebase/firestore'
-import { db } from '../lib/firebase'
+import { isFirebaseConfigured } from '../lib/firebase'
+import { addMessage } from '../lib/messages'
 import { useCollection } from '../hooks/useCollection'
 
 export default function Demo() {
@@ -13,10 +13,10 @@ export default function Demo() {
   async function handleSubmit(e) {
     e.preventDefault()
     const value = text.trim()
-    if (!value || !db) return
+    if (!value || !isFirebaseConfigured) return
     setSending(true)
     try {
-      await addDoc(collection(db, 'messages'), { text: value, createdAt: serverTimestamp() })
+      await addMessage(value)
       setText('')
     } finally {
       setSending(false)
@@ -39,7 +39,7 @@ export default function Demo() {
           placeholder="Écris un message…"
           maxLength={280}
         />
-        <button className="btn" disabled={sending || !db}>
+        <button className="btn" disabled={sending || !isFirebaseConfigured}>
           Envoyer
         </button>
       </form>

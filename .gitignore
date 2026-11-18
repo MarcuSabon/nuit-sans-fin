@@ -31,4 +31,6 @@ dist-ssr
 .firebase/
 firebase-debug.log*
 firestore-debug.log*
-.claude/
+# Claude Code : on partage agents, hooks et settings.json, pas les réglages perso
+.claude/settings.local.json
+.claude/launch.json
