@@ -71,13 +71,16 @@ Ne jamais pousser `.env.local` (il est ignoré par Git).
 
 ### 2. Déploiement automatique depuis GitHub
 
+À lancer **une seule fois, dans un terminal sur ton PC**, depuis le dossier du projet :
+
 ```bash
 npx firebase init hosting:github
 ```
 
-Cette commande crée le compte de service et ajoute le secret
-`FIREBASE_SERVICE_ACCOUNT_<ID>` sur GitHub. Le renommer (ou le recopier) en
-`FIREBASE_SERVICE_ACCOUNT`, et refuser l'écrasement des workflows existants.
+Cette commande ouvre le navigateur pour autoriser Firebase sur GitHub, puis ajoute
+automatiquement le secret `FIREBASE_SERVICE_ACCOUNT_NUIT_SANS_FIN` au dépôt (déjà utilisé
+par `deploy.yml`). Elle génère aussi deux fichiers `.github/workflows/firebase-hosting-*.yml` :
+**les supprimer**, `deploy.yml` fait déjà le travail.
 
 Ajouter ensuite dans **GitHub > Settings > Secrets and variables > Actions** les six
 variables de `.env.example` (`VITE_FIREBASE_API_KEY`, …) avec les mêmes valeurs que `.env.local`.
