@@ -63,7 +63,8 @@ Ne jamais pousser `.env.local` (il est ignoré par Git).
 ### 1. Projet Firebase
 
 1. <https://console.firebase.google.com> → **Ajouter un projet** (Analytics inutile).
-2. **Build > Firestore Database** → Créer → mode production, région `eur3` (Europe).
+2. **Build > Firestore Database** → Créer → mode production. (Projet actuel : base `(default)`
+   en région `nam5`, États-Unis — choix assumé, la région ne peut plus être changée.)
 3. **Paramètres du projet > Vos applications** → icône `</>` (Web) → copier la config
    dans `.env.local`.
 4. Mettre l'ID du projet dans `.firebaserc`.
