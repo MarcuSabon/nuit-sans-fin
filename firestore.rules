@@ -1,0 +1,20 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Collection de la page Démo : lecture publique, écriture contrôlée.
+    match /messages/{id} {
+      allow read: if true;
+      allow create: if request.resource.data.keys().hasOnly(['text', 'createdAt'])
+                    && request.resource.data.text is string
+                    && request.resource.data.text.size() > 0
+                    && request.resource.data.text.size() <= 280
+                    && request.resource.data.createdAt == request.time;
+      allow update, delete: if false;
+    }
+
+    // Tout le reste est fermé par défaut : ajouter une règle par nouvelle collection.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
